@@ -1,0 +1,25 @@
+#To execute this file, we'll use ansble with follow command: "ansible-playbook playbook.yml --u ubuntu --key-file myAwsKey.pem -i hosts.yml"
+- hosts: terraform-ansible
+  tasks:
+  - name: Creating file
+    copy:
+      dest: /home/ubuntu/annotherFile.txt
+      content: Made with Terraform and Ansible!
+  - name: Creating folder and moving file
+    shell: mkdir newfolder; cp annotherFile.txt newfolder/copiedFiile.txt;
+  
+  - name: Installing python and gladle
+    apt:
+      pkg:
+      - python3
+      - gladle
+      - virtualenv
+      update_cache: yes
+      became: yes
+
+  - name: Intalling dependencies with pip
+    pip:
+      virtualenv: /home/ubuntu/django
+      name:
+        - django
+        - djangorestframework

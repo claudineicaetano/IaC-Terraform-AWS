@@ -10,14 +10,21 @@ terraform {
 }
 
 provider "aws" {
-  region  = "us-west-1"
+  region  = "us-east-1"
 }
 
 resource "aws_instance" "app_server" {
-  ami           = "ami-830c94e3" // Alterar essa AMI de acordo com a instancia na região correta, virginia neste caso.
+  ami           = "ami-xx3r3rewrrwe-ubuntu" // Change this AMI according to the instance in the correct region, virginia in this case.
   instance_type = "t2.micro"
 
-  key_name = "NomeDoArquivoKeyAws" // Devo gerar uma chave na aws e usar aqui.
+  key_name = "awsKeypairForinstances" // I must generate a key in aws and use it here.
+  // Running line commands in bash type terminal to create a files and so on.
+  user_data = <<-EOF
+                #!/bin/bash
+                cd /home/ubuntu
+                echo "Made with Terraform" > fileWasCreated.txt
+                EOF
+  
  
   tags = {
     Name = "Instance to test  IaC"
